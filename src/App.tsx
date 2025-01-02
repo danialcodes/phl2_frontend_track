@@ -1,30 +1,24 @@
-import { Button } from "./components/ui/button"
-import { decreament, increament } from "./redux/features/counter/counterSlice"
-import { useAppDispatch, useAppSelector } from "./redux/hooks"
+import { Outlet } from "react-router"
+import NavBar from "./components/layout/NavBar"
+
 
 function App() {
-  const dispatch = useAppDispatch()
-  const {count} = useAppSelector((state) => state.counter)
 
-  const handleIncrement = (amount:number) => {
-    dispatch(increament(amount))
-  }
-  const handleDecrement = (amount:number) => {
-    dispatch(decreament(amount))
-  }
 
   return (
     <>
-      <div>
-        <h1 className="text-xl font-bold">Counter With Redux</h1>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px'}}>
-          <Button variant={"destructive"} onClick={()=>handleDecrement(1)}>Decrement</Button>
-          <span>{count}</span>
-          <Button onClick={()=>handleIncrement(1)}>Increment</Button>
+      <header>
+        <NavBar/>
+      </header>
+      <main className="p-5 m-2">
+        <Outlet/>
+      </main>
+      <footer>
+        <div className="max-w-7xl mx-auto h-16 flex items-center justify-center px-5 ">
+          <span className="text-lg ">© 2025 DaniDo</span>
         </div>
-        
+      </footer>
 
-      </div>
     </>
   )
 }
