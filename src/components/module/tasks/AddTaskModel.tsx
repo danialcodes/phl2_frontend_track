@@ -17,15 +17,28 @@ import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 import { DialogDescription } from "@radix-ui/react-dialog"
 import { CalendarIcon } from "lucide-react"
-import { useForm } from "react-hook-form"
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import { useState } from "react"
+import { useCreateTaskMutation } from "@/redux/api/baseApi"
+import { v4 as uuid } from 'uuid';
 
-export default function AddTaskModel() {
+export default  function AddTaskModel() {
+    const [open, setOpen] = useState(false);
+    const [createTask, {data,isLoading,isError}] = useCreateTaskMutation();
+
     const form = useForm();
-    const onSubmit = (data) =>{
-        console.log('data', data);
+    const onSubmit:SubmitHandler<FieldValues> = async (data) =>{
+        const taskData = {
+            ...data,
+            id:uuid(),
+            isCompleted:false,
+        };
+        const res = await createTask(taskData).unwrap();
+        console.log('res', res);
+        setOpen(false);
     }
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>Add Task</Button>
       </DialogTrigger>
@@ -70,7 +83,7 @@ export default function AddTaskModel() {
                     name="dueDate"
                     render={({ field }) => (
                         <FormItem className="flex flex-col">
-                        <FormLabel>Date of birth</FormLabel>
+                        <FormLabel>Due Date</FormLabel>
                         <Popover>
                             <PopoverTrigger asChild>
                             <FormControl>
@@ -131,7 +144,11 @@ export default function AddTaskModel() {
                     )}
                 />
                 <DialogFooter>
-                <Button type="submit">Save changes</Button>
+                    <Button className="w-full" type="submit">
+                        {
+                            isLoading ? "Loading..." : "Add Task"
+                        }
+                    </Button>
                 </DialogFooter>
             </form>
         </Form>

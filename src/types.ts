@@ -6,3 +6,7 @@ export interface ITask {
     isCompleted: boolean;
     priority: "low" | "medium" | "high";
 }
+
+export interface IProps {
+    children: React.ReactNode;
+}
