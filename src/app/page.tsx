@@ -1,7 +1,17 @@
-import Image from "next/image";
+import LatestBlogs from "@/components/LatestBlogs/LatestBlogs";
 
-export default function Home() {
+const HomePage = async() => {
+  const res = await fetch("http://localhost:3000/api/blogs",{
+    next:{
+      revalidate:20
+    }
+  });
+  const data = await res.json();
   return (
-    <h1 className="text-4xl text-center">Hello</h1>
+    <div className="my-10">
+      <LatestBlogs blogs={data} />
+    </div>
   );
-}
+};
+
+export default HomePage;
