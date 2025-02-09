@@ -1,4 +1,4 @@
-# NexaBlog-Starter-Pack
+# Next.Js-Authentication-Starter-Pack
 
 ## Installation:
 

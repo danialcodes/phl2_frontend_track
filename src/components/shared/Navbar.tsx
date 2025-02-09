@@ -1,56 +1,82 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import brandLogo from "@/assets/logo.png";
-import Image from "next/image";
 
 const Navbar = () => {
-  const pathname = usePathname();
-
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/blogs", label: "Blogs" },
-    { href: "/about", label: "About Us" },
-    { href: "/support", label: "Support" },
-  ];
-
   return (
-    <nav className="flex items-center justify-between p-4 border-b container mx-auto">
+    <div className="w-[90%] mx-auto flex items-center justify-between bg-white border-b py-4">
       <div className="flex items-center">
-        <div className="flex items-center space-x-2">
-          <Link href="/" className="flex items-center gap-1">
-            <Image src={brandLogo} width={30} height={30} alt="brand logo" />
-            <span className="text-xl font-bold">NexaBlog</span>
-          </Link>
-        </div>
-      </div>
-
-      <div className="flex items-center space-x-6">
-        {navLinks.map(({ href, label }) => (
-          <Link
-            key={href}
-            href={href}
-            className={`${
-              pathname === href
-                ? "text-teal-600 font-bold"
-                : "text-gray-700 hover:text-6eal-700"
-            }`}
+        <div className="relative lg:hidden">
+          <div
+            tabIndex={0}
+            role="button"
+            className="p-2 rounded-md hover:bg-gray-100 focus:outline-none"
           >
-            {label}
-          </Link>
-        ))}
-      </div>
-
-      <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
+          </div>
+          <ul
+            tabIndex={0}
+            className="absolute mt-3 z-10 p-2 shadow-md bg-white rounded-md w-52"
+          >
+            <li className="py-2 px-4 hover:bg-gray-100">
+              <Link href="/">Home</Link>
+            </li>
+            <li className="py-2 px-4 hover:bg-gray-100">
+              <Link href="/about">About Us</Link>
+            </li>
+            <li className="py-2 px-4 hover:bg-gray-100">
+              <Link href="/support">Support</Link>
+            </li>
+          </ul>
+        </div>
         <Link
-          href="/blogs/create"
-          className="px-4 py-3 bg-teal-600 text-white rounded-full hover:bg-teal-500"
+          href="/"
+          className="ml-4 text-xl font-semibold text-gray-800 hover:text-gray-600"
         >
-          Post Blog
+          NextAuth
         </Link>
       </div>
-    </nav>
+
+      <div className="hidden lg:flex">
+        <ul className="flex space-x-6 text-gray-800">
+          <li className="hover:text-gray-600">
+            <Link href="/">Home</Link>
+          </li>
+          <li className="hover:text-gray-600">
+            <Link href="/about">About Us</Link>
+          </li>
+          <li className="hover:text-gray-600">
+            <Link href="/support">Support</Link>
+          </li>
+          <li className="hover:text-gray-600">
+            <Link href="/dashboard">Dashboard</Link>
+          </li>
+        </ul>
+      </div>
+
+      <div className="flex items-center">
+        <button className="border border-red-500 text-red-500 px-5 py-2 rounded-full hover:bg-red-500 hover:text-black transition duration-200">
+          Logout
+        </button>
+        <Link
+          href="/login"
+          className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200"
+        >
+          Login
+        </Link>
+      </div>
+    </div>
   );
 };
 
