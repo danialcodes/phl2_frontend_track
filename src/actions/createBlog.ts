@@ -9,6 +9,7 @@ export const createBlog = async (data: FormData) => {
         headers: {
             "Content-Type": "application/json"
         },
+        
         body: JSON.stringify(blogData)
     });
     const resData = await res.json();
